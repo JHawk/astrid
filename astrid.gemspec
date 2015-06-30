@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Astrid::VERSION
   spec.authors       = ["JHawk"]
   spec.email         = ["josh.r.hawk@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{A Star in ruby.}
+  spec.description   = %q{A Star in ruby.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
