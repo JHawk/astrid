@@ -1,4 +1,4 @@
-module Pathfinder
+module Astrid
   module Heuristics
     class Manhattan
 

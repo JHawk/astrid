@@ -1,10 +1,8 @@
 require 'spec_helper'
 require 'astrid/finders/a_star'
 
-describe 'Pathfinder::Finders::AStar' do
-
-
-  let(:a_star) { Pathfinder::Finders::AStar.new }
+describe Astrid::Finders::AStar do
+  let(:a_star) { Astrid::Finders::AStar.new }
 
   describe "#grid" do
     describe "#visited_positions" do

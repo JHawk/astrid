@@ -1,6 +1,6 @@
 require 'astrid/heuristics/manhattan'
 
-module Pathfinder
+module Astrid
   module Finders
     class AStar
 
@@ -17,8 +17,6 @@ module Pathfinder
         node
       end
 
-      # look at
-      # https://github.com/qiao/PathFinding.js/blob/master/src/finders/AStarFinder.js
       # A*
       # requires x & y
       # node = g, f, h, x, y, opened, walkable, closed, parent
