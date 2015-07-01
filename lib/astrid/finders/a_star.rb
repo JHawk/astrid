@@ -20,8 +20,6 @@ module Astrid
       # A*
       # requires x & y
       # node = g, f, h, x, y, opened, walkable, closed, parent
-      #
-      # extract a grid class
       # clearly not optomized at all!
       def find_path(start_node, end_node, grid)
         start_node = sanitize(start_node)
@@ -133,32 +131,6 @@ module Astrid
 
       def find_path_a_with_time(start_node, end_node, grid)
         result, time = find_path_a(start_node, end_node, grid)
-      end
-
-      def grid_from_s_map(str)
-        normalize = str.lines.reverse
-
-        max_x = normalize.map(&:length).max
-        max_y = normalize.length
-
-        y_idx = 0
-        normalize.inject({max_x: max_x, max_y: max_y}) do |grid, line|
-          line.each_char.each_with_index do |c, x_idx|
-            if c == '|' || c == '_'
-              grid.merge!(
-                [x_idx,y_idx] => { walkable: false}
-              )
-            end
-          end
-          y_idx += 1
-          grid
-        end
-      end
-
-      def visited_positions
-        @current_grid.select do |k,v|
-          k.is_a?(Array) && (v[:opened] || v[:closed])
-        end.map {|a| a[1]}
       end
 
       def grid_p
