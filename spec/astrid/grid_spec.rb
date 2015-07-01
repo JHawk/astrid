@@ -168,7 +168,7 @@ describe Astrid::Grid do
       it 'makes the | not walkable' do
         grid = subject
 
-        expect(grid[[1,0]][:walkable]).to be_falsey
+        expect(grid.walkable?([1,0])).to be_falsey
       end
     end
 
@@ -183,7 +183,7 @@ describe Astrid::Grid do
       it 'makes the _ not walkable' do
         grid = subject
 
-        expect(grid[[1,0]][:walkable]).to be_falsey
+        expect(grid.walkable?([1,0])).to be_falsey
       end
     end
   end

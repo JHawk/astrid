@@ -1,6 +1,7 @@
 require 'pry'
 module Astrid
   class Grid
+    attr_accessor :max_x, :max_y, :inner_grid
 
     class << self
       def create(str)
@@ -9,18 +10,18 @@ module Astrid
         max_x = normalize.map(&:length).max
         max_y = normalize.length
 
+        grid = self.new(max_x,max_y)
+
         y_idx = 0
-        normalize.inject({max_x: max_x, max_y: max_y}) do |grid, line|
+        normalize.each do |line|
           line.each_char.each_with_index do |c, x_idx|
             if c == '|' || c == '_'
-              grid.merge!(
-                [x_idx,y_idx] => { walkable: false}
-              )
+              grid.walkable([x_idx,y_idx], false)
             end
           end
           y_idx += 1
-          grid
         end
+        grid
       end
     end
 
@@ -28,6 +29,18 @@ module Astrid
       @max_x = max_x
       @max_y = max_y
       @inner_grid = {}
+    end
+
+    def walkable(v, is_walkable)
+      k = v.is_a?(Hash) ? [v[:x], v[:y]] : v
+      node = find_or_create_at(k)
+      node[:walkable] = is_walkable
+    end
+
+    def walkable?(v)
+      k = v.is_a?(Hash) ? [v[:x], v[:y]] : v
+      node = @inner_grid[k]
+      !node || node[:walkable].nil? || node[:walkable]
     end
 
     def opened?(v)

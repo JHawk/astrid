@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'astrid/grid'
 require 'astrid/finders/a_star'
 
 describe Astrid::Finders::AStar do
@@ -11,7 +12,7 @@ describe Astrid::Finders::AStar do
       context 'origin to 100,100' do
         let(:position1) { {x: 0, y: 0} }
         let(:position2) { {x: 100, y: 100} }
-        let(:grid) { {max_x:10000, max_y:10000} }
+        let(:grid) { Astrid::Grid.new(10000,10000) }
 
         it 'should not take too long' do
           path = subject
@@ -28,7 +29,7 @@ describe Astrid::Finders::AStar do
       context 'origin to origin' do
         let(:position1) { {x: 0, y: 0} }
         let(:position2) { {x: 0, y: 0} }
-        let(:grid) { {max_x:10, max_y:10} }
+        let(:grid) { Astrid::Grid.new(10,10) }
 
         it { is_expected.to eq([[0,0]]) }
       end
@@ -44,7 +45,7 @@ describe Astrid::Finders::AStar do
         end
 
         context "when grid contains start and end" do
-          let(:grid) { {max_x:2, max_y:2} }
+          let(:grid) { Astrid::Grid.new(2,2) }
 
           it { is_expected.to eq([[0,0],[0,1],[1,1]]) }
         end
@@ -53,7 +54,7 @@ describe Astrid::Finders::AStar do
       context 'origin to 2,2' do
         let(:position1) { {x: 0, y: 0} }
         let(:position2) { {x: 2, y: 2} }
-        let(:grid) { {max_x:5, max_y:5} }
+        let(:grid) { Astrid::Grid.new(5,5) }
 
         it { is_expected.to include([0,0]) }
         it { is_expected.to include([2,2]) }

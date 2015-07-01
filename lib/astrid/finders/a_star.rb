@@ -27,9 +27,10 @@ module Astrid
         if grid.nil?
           [start_node]
         else
-          @current_grid = grid.clone
-          _max_x = grid[:max_x]
-          _max_y = grid[:max_y]
+          _max_x = grid.max_x
+          _max_y = grid.max_y
+
+          @current_grid = grid.inner_grid.clone
 
           raise 'max_x & max_y required' unless _max_x && _max_y
 
