@@ -31,52 +31,45 @@ module Astrid
       @inner_grid = {}
     end
 
-    def walkable(v, is_walkable)
-      k = v.is_a?(Hash) ? [v[:x], v[:y]] : v
-      node = find_or_create_at(k)
-      node[:walkable] = is_walkable
-    end
-
-    def walkable?(v)
-      k = v.is_a?(Hash) ? [v[:x], v[:y]] : v
-      node = @inner_grid[k]
-      !node || node[:walkable].nil? || node[:walkable]
-    end
-
-    def opened?(v)
-      k = [v[:x], v[:y]]
-      node = @inner_grid[k]
-      node && node[:opened]
-    end
-
-    def open(v)
-      k = [v[:x], v[:y]]
-      node = find_or_create_at(k)
-      node[:opened] = true
-    end
-
-    def closed?(v)
-      k = [v[:x], v[:y]]
-      node = @inner_grid[k]
-      node && node[:closed]
-    end
-
     def close(v)
-      k = [v[:x], v[:y]]
-      node = find_or_create_at(k)
+      node = find_or_create_at(v)
       node[:opened] = true
       node[:closed] = true
     end
 
-    def visited?(v)
-      k = [v[:x], v[:y]]
-      node = @inner_grid[k]
-      node && (node[:opened] || node[:closed])
+    def walkable(v, is_walkable)
+      node = find_or_create_at(v)
+      node[:walkable] = is_walkable
+    end
+
+    def open(v)
+      node = find_or_create_at(v)
+      node[:opened] = true
     end
 
     def empty(v)
-      k = [v[:x], v[:y]]
+      k = v.is_a?(Hash) ? [v[:x], v[:y]] : v
       create_empty_node_at(k)
+    end
+
+    def closed?(v)
+      node = find_at(v)
+      node && node[:closed]
+    end
+
+    def walkable?(v)
+      node = find_at(v)
+      !node || node[:walkable].nil? || node[:walkable]
+    end
+
+    def opened?(v)
+      node = find_at(v)
+      node && node[:opened]
+    end
+
+    def visited?(v)
+      node = find_at(v)
+      node && (node[:opened] || node[:closed])
     end
 
     def update(v)
@@ -104,7 +97,13 @@ module Astrid
       @inner_grid[k] || empty_node(k)
     end
 
-    def find_or_create_at(k)
+    def find_at(v)
+      k = v.is_a?(Hash) ? [v[:x], v[:y]] : v
+      @inner_grid[k]
+    end
+
+    def find_or_create_at(v)
+      k = v.is_a?(Hash) ? [v[:x], v[:y]] : v
       @inner_grid[k] || create_empty_node_at(k)
     end
   end
